@@ -40,11 +40,11 @@ module Reports
         daily_data.push((line.chomp).split(','))
       end
       daily_data.each_with_index do |elem, index|
-        next if index.zero?
+        next if index.zero? || elem[1].nil? || elem[3].nil? || elem[8].nil?
 
-        monthly_highest.push(Array[elem[0], Integer(elem[1] == '' ? '0' : elem[1])])
-        monthly_lowest.push(Array[elem[0], Integer(elem[3] == '' ? '0' : elem[3])])
-        monthly_humidity.push(Array[elem[0], Integer(elem[7] == '' ? '0' : elem[7])])
+        monthly_highest.push(Array[elem[0], Integer(elem[1])])
+        monthly_lowest.push(Array[elem[0], Integer(elem[3])])
+        monthly_humidity.push(Array[elem[0], Integer(elem[8])])
       end
       yearly_highest_list.push(monthly_highest.max { |a, b| a[1] <=> b[1] })
       yearly_lowest_list.push(monthly_lowest.min { |a, b| a[1] <=> b[1] })
